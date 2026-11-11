@@ -1,0 +1,107 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "",
+    "text": "Sure Tomorrow busca implementar soluciones de Machine Learning para cuatro desafíos: 1. Búsqueda de clientes similares: Identificar clientes con perfiles parecidos para optimizar campañas de marketing. 2. Clasificación de prestaciones: Predecir la probabilidad de que un cliente reciba una prestación. 3. Regresión de prestaciones: Predecir el número de prestaciones que un cliente podría recibir. 4. Privacidad de Datos: Ofuscar la información personal (PII) garantizando que, si los datos se filtran, no puedan ser recuperados, pero asegurando que los modelos de ML sigan funcionando con la misma precisión."
+  },
+  {
+    "objectID": "index.html#el-problema-de-negocio",
+    "href": "index.html#el-problema-de-negocio",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "",
+    "text": "Sure Tomorrow busca implementar soluciones de Machine Learning para cuatro desafíos: 1. Búsqueda de clientes similares: Identificar clientes con perfiles parecidos para optimizar campañas de marketing. 2. Clasificación de prestaciones: Predecir la probabilidad de que un cliente reciba una prestación. 3. Regresión de prestaciones: Predecir el número de prestaciones que un cliente podría recibir. 4. Privacidad de Datos: Ofuscar la información personal (PII) garantizando que, si los datos se filtran, no puedan ser recuperados, pero asegurando que los modelos de ML sigan funcionando con la misma precisión."
+  },
+  {
+    "objectID": "index.html#los-datos",
+    "href": "index.html#los-datos",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "📊 Los Datos",
+    "text": "📊 Los Datos\n\nFuente: insurance_us.csv.\nRegistros: 4,847 (tras eliminar duplicados).\nVariables: gender, age, income, family_members.\nVariable objetivo: insurance_benefits (número de prestaciones)."
+  },
+  {
+    "objectID": "index.html#enfoques-y-soluciones",
+    "href": "index.html#enfoques-y-soluciones",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "🧠 Enfoques y Soluciones",
+    "text": "🧠 Enfoques y Soluciones\n\n1. Clientes Similares (KNN)\nSe utilizó KNN para encontrar los (k) clientes más cercanos. Se demostró que el escalado de los datos es crítico: sin escalar, la variable income dominaba la distancia. Con MaxAbsScaler, el modelo identifica vecinos reales.\n\n\n2. Clasificación (Predicción de Prestaciones)\nSe construyó un clasificador KNN para predecir si un cliente recibirá al menos una prestación. Ante el fuerte desbalanceo (~88% clase 0), se comparó contra un modelo Dummy. - Resultado: El KNN escalado logró un F1-Score de 0.9264, superando al modelo Dummy (F1 máximo de 0.21).\n\n\n3. Regresión Lineal (Conteo de Prestaciones)\nSe implementó un modelo de Regresión Lineal desde cero utilizando la solución analítica matricial: [ w = (X^T X)^{-1} X^T y ] - Resultado: RMSE de 0.36 y (R^2) de 0.66. - Hallazgo clave: Se demostró empíricamente que el escalado de los datos no afecta los resultados de la regresión lineal, ya que los pesos del modelo se ajustan automáticamente.\n\n\n4. Ofuscación de Datos y Privacidad (El diferenciador del proyecto)\nPara proteger los datos, se multiplicó la matriz de características (X) por una matriz invertible (P) de números aleatorios: (X’ = X P).\nPrueba Analítica de la Regresión con Ofuscación: Si entrenamos el modelo con datos ofuscados, los nuevos pesos serían: [ w_P = [(XP)^T XP]^{-1} (XP)^T y ] Aplicando propiedades matriciales: [ w_P = [P^T X^T X P]^{-1} P^T X^T y = P^{-1} (X^T X)^{-1} (PT){-1} P^T X^T y ] [ w_P = P^{-1} [(X^T X)^{-1} X^T y] = P^{-1} w ] Al predecir, el modelo ofuscado calcula: [ _P = X’ w_P = (XP)(P^{-1}w) = X(PP^{-1})w = Xw = ] Conclusión: Los valores predichos son exactamente los mismos. El RMSE y el (R^2) no se ven afectados (diferencia máxima por precisión de punto flotante de (9.07 ^{-8})). Los datos son inútiles para un hacker (sin la matriz (P)), pero perfectos para el modelo."
+  },
+  {
+    "objectID": "index.html#recomendación-de-negocio",
+    "href": "index.html#recomendación-de-negocio",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "✅ Recomendación de Negocio",
+    "text": "✅ Recomendación de Negocio\nSure Tomorrow puede implementar el modelo de KNN con datos ofuscados para sus campañas de marketing y predicción de prestaciones. La ofuscación garantiza el cumplimiento de las leyes de protección de datos sin sacrificar la calidad de las predicciones."
+  },
+  {
+    "objectID": "index.html#stack-técnico",
+    "href": "index.html#stack-técnico",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "🛠️ Stack Técnico",
+    "text": "🛠️ Stack Técnico\n\n\nLenguajes\nPython\n\n\nAnálisis\nPandas · NumPy\n\n\nML\nScikit-learn (KNN, Regresión Lineal)\n\n\nTécnicas\nÁlgebra Matricial · Ofuscación de Datos · Escalado"
+  },
+  {
+    "objectID": "index.html#recursos",
+    "href": "index.html#recursos",
+    "title": "Sure Tomorrow: Seguros y Privacidad de Datos",
+    "section": "🔗 Recursos",
+    "text": "🔗 Recursos\n\n📓 Notebook completo\n💻 Repositorio en GitHub"
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html",
+    "href": "notebooks/analisis-sure-tomorrow.html",
+    "title": "Descripción",
+    "section": "",
+    "text": "La compañía de seguros Sure Tomorrow quiere resolver varias tareas con la ayuda de machine learning y te pide que evalúes esa posibilidad."
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#inicialización",
+    "href": "notebooks/analisis-sure-tomorrow.html#inicialización",
+    "title": "Descripción",
+    "section": "Inicialización",
+    "text": "Inicialización\n\n\n🔍 Ver código Python\nimport numpy as np\nimport pandas as pd\nimport math\nimport seaborn as sns\nimport sklearn.preprocessing\nimport sklearn.linear_model\nimport sklearn.metrics\nimport sklearn.neighbors\nimport sklearn.preprocessing\n\nfrom sklearn.model_selection import train_test_split\n\nfrom IPython.display import display"
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#carga-de-datos",
+    "href": "notebooks/analisis-sure-tomorrow.html#carga-de-datos",
+    "title": "Descripción",
+    "section": "Carga de datos",
+    "text": "Carga de datos\nCarga los datos y haz una revisión básica para comprobar que no hay problemas obvios.\n\n\n🔍 Ver código Python\ndf = pd.read_csv('/datasets/insurance_us.csv')\n\n\nRenombramos las columnas para que el código se vea más coherente con su estilo.\n\n\n🔍 Ver código Python\ndf = df.rename(columns={'Gender': 'gender', 'Age': 'age', 'Salary': 'income', 'Family members': 'family_members', 'Insurance benefits': 'insurance_benefits'})\n\n\n\n\n🔍 Ver código Python\ndf.sample(10)\n\n\n\n\n\n\n\n\n\ngender\nage\nincome\nfamily_members\ninsurance_benefits\n\n\n\n\n2289\n0\n27.0\n41700.0\n0\n0\n\n\n208\n1\n40.0\n52000.0\n3\n0\n\n\n2534\n0\n26.0\n46700.0\n0\n0\n\n\n1584\n1\n19.0\n51800.0\n1\n0\n\n\n4567\n1\n31.0\n53400.0\n2\n0\n\n\n3956\n0\n34.0\n42800.0\n1\n0\n\n\n1284\n1\n24.0\n31800.0\n1\n0\n\n\n3978\n0\n24.0\n36300.0\n0\n0\n\n\n4131\n0\n33.0\n36700.0\n0\n0\n\n\n1825\n0\n43.0\n48400.0\n1\n1\n\n\n\n\n\n\n\n\n\n🔍 Ver código Python\ndf.info()\n\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 5000 entries, 0 to 4999\nData columns (total 5 columns):\n #   Column              Non-Null Count  Dtype  \n---  ------              --------------  -----  \n 0   gender              5000 non-null   int64  \n 1   age                 5000 non-null   float64\n 2   income              5000 non-null   float64\n 3   family_members      5000 non-null   int64  \n 4   insurance_benefits  5000 non-null   int64  \ndtypes: float64(2), int64(3)\nmemory usage: 195.4 KB\n\n\n\n\n🔍 Ver código Python\n# puede que queramos cambiar el tipo de edad (de float a int) aunque esto no es crucial\n\n# escribe tu conversión aquí si lo deseas:\ndf['age'] = df['age'].astype('int32')\n\n\n\n\n🔍 Ver código Python\n# comprueba que la conversión se haya realizado con éxito\ndf.info()\n\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 5000 entries, 0 to 4999\nData columns (total 5 columns):\n #   Column              Non-Null Count  Dtype  \n---  ------              --------------  -----  \n 0   gender              5000 non-null   int64  \n 1   age                 5000 non-null   int32  \n 2   income              5000 non-null   float64\n 3   family_members      5000 non-null   int64  \n 4   insurance_benefits  5000 non-null   int64  \ndtypes: float64(1), int32(1), int64(3)\nmemory usage: 175.9 KB\n\n\n\n\n🔍 Ver código Python\n# ahora echa un vistazo a las estadísticas descriptivas de los datos.\n# ¿Se ve todo bien?\ndf.describe()\n\n\n\n\n\n\n\n\n\ngender\nage\nincome\nfamily_members\ninsurance_benefits\n\n\n\n\ncount\n5000.000000\n5000.000000\n5000.000000\n5000.000000\n5000.000000\n\n\nmean\n0.499000\n30.952800\n39916.360000\n1.194200\n0.148000\n\n\nstd\n0.500049\n8.440807\n9900.083569\n1.091387\n0.463183\n\n\nmin\n0.000000\n18.000000\n5300.000000\n0.000000\n0.000000\n\n\n25%\n0.000000\n24.000000\n33300.000000\n0.000000\n0.000000\n\n\n50%\n0.000000\n30.000000\n40200.000000\n1.000000\n0.000000\n\n\n75%\n1.000000\n37.000000\n46600.000000\n2.000000\n0.000000\n\n\nmax\n1.000000\n65.000000\n79000.000000\n6.000000\n5.000000\n\n\n\n\n\n\n\n\n\n🔍 Ver código Python\n# Verificar nulos y filas duplicadas\nprint(\"Valores ausentes por columna:\")\nprint(df.isna().sum())\n\nprint(\"\\nNúmero de filas duplicadas:\", df.duplicated().sum())\n\n\nValores ausentes por columna:\ngender                0\nage                   0\nincome                0\nfamily_members        0\ninsurance_benefits    0\ndtype: int64\n\nNúmero de filas duplicadas: 153\n\n\n\n\n🔍 Ver código Python\n# Eliminar duplicados si existen\ndf = df.drop_duplicates().reset_index(drop=True)\nprint(\"Tamaño del DataFrame después de eliminar duplicados:\", df.shape)\n\n\nTamaño del DataFrame después de eliminar duplicados: (4847, 5)"
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#análisis-exploratorio-de-datos",
+    "href": "notebooks/analisis-sure-tomorrow.html#análisis-exploratorio-de-datos",
+    "title": "Descripción",
+    "section": "Análisis exploratorio de datos",
+    "text": "Análisis exploratorio de datos\nVamos a comprobar rápidamente si existen determinados grupos de clientes observando el gráfico de pares.\n\n\n🔍 Ver código Python\ng = sns.pairplot(df, kind='hist')\ng.fig.set_size_inches(12, 12)\n\n\n\n\n\n\n\n\n\nDe acuerdo, es un poco complicado detectar grupos obvios (clústeres) ya que es difícil combinar diversas variables simultáneamente (para analizar distribuciones multivariadas). Ahí es donde LA y ML pueden ser bastante útiles."
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#prueba-de-que-la-ofuscación-de-datos-puede-funcionar-con-regresión-lineal",
+    "href": "notebooks/analisis-sure-tomorrow.html#prueba-de-que-la-ofuscación-de-datos-puede-funcionar-con-regresión-lineal",
+    "title": "Descripción",
+    "section": "Prueba de que la ofuscación de datos puede funcionar con regresión lineal",
+    "text": "Prueba de que la ofuscación de datos puede funcionar con regresión lineal\nEn este proyecto la tarea de regresión se ha resuelto con la regresión lineal. Tu siguiente tarea es demostrar analytically que el método de ofuscación no afectará a la regresión lineal en términos de valores predichos, es decir, que sus valores seguirán siendo los mismos. ¿Lo puedes creer? Pues no hace falta que lo creas, ¡tienes que que demostrarlo!\nEntonces, los datos están ofuscados y ahora tenemos \\(X \\times P\\) en lugar de tener solo \\(X\\). En consecuencia, hay otros pesos \\(w_P\\) como \\[\nw = (X^T X)^{-1} X^T y \\quad \\Rightarrow \\quad w_P = [(XP)^T XP]^{-1} (XP)^T y\n\\]\n¿Cómo se relacionarían \\(w\\) y \\(w_P\\) si simplificáramos la fórmula de \\(w_P\\) anterior? Los pesos están relacionados mediante la ecuación \\(w_P = P^{-1} w\\).\n¿Cuáles serían los valores predichos con \\(w_P\\)? Los valores predichos con \\(w_P\\) son exactamente idénticos a los valores predichos originales (\\(\\hat{y}_P = \\hat{y}\\)).\n¿Qué significa esto para la calidad de la regresión lineal si esta se mide mediante la RECM? Significa que la calidad del modelo no se ve afectada en absoluto. Las métricas RECM (\\(\\text{RMSE}\\)) y \\(R^2\\) permanecen exactamente iguales antes y después de la ofuscación de los datos.\nRevisa el Apéndice B Propiedades de las matrices al final del cuaderno. ¡Allí encontrarás fórmulas muy útiles!\nNo es necesario escribir código en esta sección, basta con una explicación analítica.\nRespuesta\nLos pesos están relacionados mediante la ecuación \\(w_P = P^{-1} w\\).\nLos valores predichos con \\(w_P\\) son exactamente idénticos a los valores predichos originales (\\(\\hat{y}_P = \\hat{y}\\)).\nSignifica que la calidad del modelo no se ve afectada en absoluto. Las métricas RECM (\\(\\text{RMSE}\\)) y \\(R^2\\) permanecen exactamente iguales antes y después de la ofuscación de los datos.\nPrueba analítica\nDemostración paso a paso:Sean \\(X\\) la matriz de características original y \\(P\\) una matriz cuadrada de dimensión \\(n \\times n\\) invertible. La matriz de características ofuscada es \\(X' = X P\\).La fórmula de los pesos de la regresión lineal con datos originales es:\\[w = (X^T X)^{-1} X^T y\\]La fórmula de los pesos para los datos ofuscados \\(X'\\) es:\\[w_P = \\left[(XP)^T (XP)\\right]^{-1} (XP)^T y\\]Aplicando la propiedad de la transpuesta de un producto \\((AB)^T = B^T A^T\\):\\[w_P = \\left[P^T X^T X P\\right]^{-1} P^T X^T y\\]Aplicando la propiedad de la inversa de un producto \\((AB)^{-1} = B^{-1} A^{-1}\\):\\[w_P = P^{-1} (X^T X)^{-1} (P^T)^{-1} P^T X^T y\\]Como \\((P^T)^{-1} P^T = I\\) (matriz identidad):\\[w_P = P^{-1} (X^T X)^{-1} I X^T y = P^{-1} \\left[(X^T X)^{-1} X^T y\\right]\\]\\[\\mathbf{w_P = P^{-1} w}\\]Ahora calculamos los valores predichos \\(\\hat{y}_P\\) con las características ofuscadas \\(X' = XP\\) y los pesos \\(w_P\\):\\[\\hat{y}_P = X' w_P = (X P) (P^{-1} w)\\]Como \\(P P^{-1} = I\\):\\[\\hat{y}_P = X (P P^{-1}) w = X I w = X w = \\mathbf{\\hat{y}}\\]Q.E.D.: Queda demostrado que \\(\\hat{y}_P = \\hat{y}\\), por lo que los valores predichos no cambian y el cálculo de la RECM (\\(\\text{RMSE}\\)) es exactamente igual."
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#prueba-de-regresión-lineal-con-ofuscación-de-datos",
+    "href": "notebooks/analisis-sure-tomorrow.html#prueba-de-regresión-lineal-con-ofuscación-de-datos",
+    "title": "Descripción",
+    "section": "Prueba de regresión lineal con ofuscación de datos",
+    "text": "Prueba de regresión lineal con ofuscación de datos\nAhora, probemos que la regresión lineal pueda funcionar, en términos computacionales, con la transformación de ofuscación elegida.\nConstruye un procedimiento o una clase que ejecute la regresión lineal opcionalmente con la ofuscación. Puedes usar una implementación de regresión lineal de scikit-learn o tu propia implementación.\nEjecuta la regresión lineal para los datos originales y los ofuscados, compara los valores predichos y los valores de las métricas RMSE y \\(R^2\\). ¿Hay alguna diferencia?\nProcedimiento\n\nCrea una matriz cuadrada \\(P\\) de números aleatorios.\nComprueba que sea invertible. Si no lo es, repite el primer paso hasta obtener una matriz invertible.\n&lt;¡ tu comentario aquí !&gt;\nUtiliza \\(XP\\) como la nueva matriz de características\n\n\n\n🔍 Ver código Python\n# 1. Crear una matriz cuadrada P de números aleatorios (4x4)\nrng = np.random.default_rng(seed=42)\nP = rng.random(size=(X.shape[1], X.shape[1]))\n\n# 2. Comprobar que sea invertible (determinante != 0)\ndet_P = np.linalg.det(P)\nprint(f\"Determinante de P: {det_P:.6f}\")\nprint(\"¿P es invertible?:\", det_P != 0)\n\n# 3. Comentario: Multiplicamos la matriz de características X por P para ofuscar la información personal.\n# 4. Utilizar XP como la nueva matriz de características\nX_obfuscated = X @ P\n\n\nDeterminante de P: 0.243391\n¿P es invertible?: True\n\n\n\n\n🔍 Ver código Python\n# Dividir datos originales y datos ofuscados con la misma semilla\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=12345)\nXo_train, Xo_test, yo_train, yo_test = train_test_split(X_obfuscated, y, test_size=0.3, random_state=12345)\n\n# Modelo con datos originales\nlr_orig = MyLinearRegression()\nlr_orig.fit(X_train, y_train)\ny_pred_orig = lr_orig.predict(X_test)\n\n# Modelo con datos ofuscados\nlr_obf = MyLinearRegression()\nlr_obf.fit(Xo_train, yo_train)\nyo_pred_obf = lr_obf.predict(Xo_test)\n\nprint(\"--- RESULTADOS CON DATOS ORIGINALES ---\")\neval_regressor(y_test, y_pred_orig)\n\nprint(\"\\n--- RESULTADOS CON DATOS OFUSCADOS ---\")\neval_regressor(yo_test, yo_pred_obf)\n\n# Diferencia máxima entre los valores predichos\nmax_diff_pred = np.max(np.abs(y_pred_orig - yo_pred_obf))\nprint(f\"\\nDiferencia máxima entre las predicciones: {max_diff_pred:.10e}\")\n\n\n--- RESULTADOS CON DATOS ORIGINALES ---\nRMSE: 0.36\nR2: 0.66\n\n--- RESULTADOS CON DATOS OFUSCADOS ---\nRMSE: 0.36\nR2: 0.66\n\nDiferencia máxima entre las predicciones: 9.0738546177e-08"
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#apéndice-a-escribir-fórmulas-en-los-cuadernos-de-jupyter",
+    "href": "notebooks/analisis-sure-tomorrow.html#apéndice-a-escribir-fórmulas-en-los-cuadernos-de-jupyter",
+    "title": "Descripción",
+    "section": "Apéndice A: Escribir fórmulas en los cuadernos de Jupyter",
+    "text": "Apéndice A: Escribir fórmulas en los cuadernos de Jupyter\nPuedes escribir fórmulas en tu Jupyter Notebook utilizando un lenguaje de marcado proporcionado por un sistema de publicación de alta calidad llamado \\(\\LaTeX\\) (se pronuncia como “Lah-tech”). Las fórmulas se verán como las de los libros de texto.\nPara incorporar una fórmula a un texto, pon el signo de dólar (\\$) antes y después del texto de la fórmula, por ejemplo: \\(\\frac{1}{2} \\times \\frac{3}{2} = \\frac{3}{4}\\) or \\(y = x^2, x \\ge 1\\).\nSi una fórmula debe estar en el mismo párrafo, pon el doble signo de dólar (\\\\(\\\\\\)) antes y después del texto de la fórmula, por ejemplo:\n\\[\n\\bar{x} = \\frac{1}{n}\\sum_{i=1}^{n} x_i.\n\\]\nEl lenguaje de marcado de LaTeX es muy popular entre las personas que utilizan fórmulas en sus artículos, libros y textos. Puede resultar complicado, pero sus fundamentos son sencillos. Consulta esta ficha de ayuda (materiales en inglés) de dos páginas para aprender a componer las fórmulas más comunes."
+  },
+  {
+    "objectID": "notebooks/analisis-sure-tomorrow.html#apéndice-b-propiedades-de-las-matrices",
+    "href": "notebooks/analisis-sure-tomorrow.html#apéndice-b-propiedades-de-las-matrices",
+    "title": "Descripción",
+    "section": "Apéndice B: Propiedades de las matrices",
+    "text": "Apéndice B: Propiedades de las matrices\nLas matrices tienen muchas propiedades en cuanto al álgebra lineal. Aquí se enumeran algunas de ellas que pueden ayudarte a la hora de realizar la prueba analítica de este proyecto.\n\n\n\nDistributividad\n\n\n\\(A(B+C)=AB+AC\\)\n\n\n\n\nNo conmutatividad\n\n\n\\(AB \\neq BA\\)\n\n\n\n\nPropiedad asociativa de la multiplicación\n\n\n\\((AB)C = A(BC)\\)\n\n\n\n\nPropiedad de identidad multiplicativa\n\n\n\\(IA = AI = A\\)\n\n\n\n\n\n\n\\(A^{-1}A = AA^{-1} = I\\)\n\n\n\n\n\n\n\\((AB)^{-1} = B^{-1}A^{-1}\\)\n\n\n\n\nReversibilidad de la transposición de un producto de matrices,\n\n\n\\((AB)^T = B^TA^T\\)"
+  }
+]
