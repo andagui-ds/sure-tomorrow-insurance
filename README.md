@@ -64,4 +64,4 @@ $$ \hat{y}_P = X' w_P = (XP)(P^{-1}w) = X(PP^{-1})w = Xw = \hat{y} $$
 - **Conceptos:** KNN, Clasificación (F1-Score), Regresión Lineal (Álgebra Matricial), Data Obfuscation, Escalado de datos (MaxAbsScaler).
 
 ## 🔗 Ver el Análisis Completo
-- 📓 [Notebook original con todo el código paso a paso](notebooks/01-analisis-principal.ipynb)
+- 📓 [Notebook original con todo el código paso a paso](notebooks/analisis-sure-tomorrow.ipynb)
