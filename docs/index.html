@@ -74,6 +74,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -144,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="enfoques-y-soluciones">🧠 Enfoques y Soluciones</h2>
 <section id="clientes-similares-knn" class="level3">
 <h3 class="anchored" data-anchor-id="clientes-similares-knn">1. Clientes Similares (KNN)</h3>
-<p>Se utilizó KNN para encontrar los (k) clientes más cercanos. Se demostró que <strong>el escalado de los datos es crítico</strong>: sin escalar, la variable <code>income</code> dominaba la distancia. Con <code>MaxAbsScaler</code>, el modelo identifica vecinos reales.</p>
+<p>Se utilizó KNN para encontrar los <span class="math inline">\(k\)</span> clientes más cercanos. Se demostró que <strong>el escalado de los datos es crítico</strong>: sin escalar, la variable <code>income</code> dominaba la distancia. Con <code>MaxAbsScaler</code>, el modelo identifica vecinos reales.</p>
 </section>
 <section id="clasificación-predicción-de-prestaciones" class="level3">
 <h3 class="anchored" data-anchor-id="clasificación-predicción-de-prestaciones">2. Clasificación (Predicción de Prestaciones)</h3>
@@ -152,12 +181,24 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="regresión-lineal-conteo-de-prestaciones" class="level3">
 <h3 class="anchored" data-anchor-id="regresión-lineal-conteo-de-prestaciones">3. Regresión Lineal (Conteo de Prestaciones)</h3>
-<p>Se implementó un modelo de Regresión Lineal desde cero utilizando la solución analítica matricial: [ w = (X^T X)^{-1} X^T y ] - <strong>Resultado:</strong> <strong>RMSE de 0.36</strong> y <strong>(R^2) de 0.66</strong>. - <strong>Hallazgo clave:</strong> Se demostró empíricamente que el escalado de los datos no afecta los resultados de la regresión lineal, ya que los pesos del modelo se ajustan automáticamente.</p>
+<p>Se implementó un modelo de Regresión Lineal desde cero utilizando la solución analítica matricial:</p>
+<p><span class="math display">\[ w = (X^T X)^{-1} X^T y \]</span></p>
+<ul>
+<li><strong>Resultado:</strong> <strong>RMSE de 0.36</strong> y <strong><span class="math inline">\(R^2\)</span> de 0.66</strong>.</li>
+<li><strong>Hallazgo clave:</strong> Se demostró empíricamente que el escalado de los datos no afecta los resultados de la regresión lineal, ya que los pesos del modelo se ajustan automáticamente.</li>
+</ul>
 </section>
 <section id="ofuscación-de-datos-y-privacidad-el-diferenciador-del-proyecto" class="level3">
 <h3 class="anchored" data-anchor-id="ofuscación-de-datos-y-privacidad-el-diferenciador-del-proyecto">4. Ofuscación de Datos y Privacidad (El diferenciador del proyecto)</h3>
-<p>Para proteger los datos, se multiplicó la matriz de características (X) por una matriz invertible (P) de números aleatorios: (X’ = X P).</p>
-<p><strong>Prueba Analítica de la Regresión con Ofuscación:</strong> Si entrenamos el modelo con datos ofuscados, los nuevos pesos serían: [ w_P = [(XP)^T XP]^{-1} (XP)^T y ] Aplicando propiedades matriciales: [ w_P = [P^T X^T X P]^{-1} P^T X^T y = P^{-1} (X^T X)^{-1} (P<sup>T)</sup>{-1} P^T X^T y ] [ w_P = P^{-1} [(X^T X)^{-1} X^T y] = P^{-1} w ] Al predecir, el modelo ofuscado calcula: [ _P = X’ w_P = (XP)(P^{-1}w) = X(PP^{-1})w = Xw = ] <strong>Conclusión:</strong> Los valores predichos son <strong>exactamente los mismos</strong>. El RMSE y el (R^2) no se ven afectados (diferencia máxima por precisión de punto flotante de (9.07 ^{-8})). Los datos son inútiles para un hacker (sin la matriz (P)), pero perfectos para el modelo.</p>
+<p>Para proteger los datos, se multiplicó la matriz de características <span class="math inline">\(X\)</span> por una matriz invertible <span class="math inline">\(P\)</span> de números aleatorios: <span class="math inline">\(X' = X \times P\)</span>.</p>
+<p><strong>Prueba Analítica de la Regresión con Ofuscación:</strong> Si entrenamos el modelo con datos ofuscados, los nuevos pesos serían:</p>
+<p><span class="math display">\[ w_P = [(XP)^T XP]^{-1} (XP)^T y \]</span></p>
+<p>Aplicando propiedades matriciales:</p>
+<p><span class="math display">\[ w_P = [P^T X^T X P]^{-1} P^T X^T y = P^{-1} (X^T X)^{-1} (P^T)^{-1} P^T X^T y \]</span></p>
+<p><span class="math display">\[ w_P = P^{-1} [(X^T X)^{-1} X^T y] = P^{-1} w \]</span></p>
+<p>Al predecir, el modelo ofuscado calcula:</p>
+<p><span class="math display">\[ \hat{y}_P = X' w_P = (XP)(P^{-1}w) = X(PP^{-1})w = Xw = \hat{y} \]</span></p>
+<p><strong>Conclusión:</strong> Los valores predichos son <strong>exactamente los mismos</strong>. El RMSE y el <span class="math inline">\(R^2\)</span> no se ven afectados (diferencia máxima por precisión de punto flotante de <span class="math inline">\(9.07 \times 10^{-8}\)</span>). Los datos son inútiles para un hacker (sin la matriz <span class="math inline">\(P\)</span>), pero perfectos para el modelo.</p>
 </section>
 </section>
 <section id="recomendación-de-negocio" class="level2">

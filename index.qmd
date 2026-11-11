@@ -24,7 +24,7 @@ Sure Tomorrow busca implementar soluciones de Machine Learning para cuatro desaf
 ## 🧠 Enfoques y Soluciones
 
 ### 1. Clientes Similares (KNN)
-Se utilizó KNN para encontrar los \(k\) clientes más cercanos. Se demostró que **el escalado de los datos es crítico**: sin escalar, la variable `income` dominaba la distancia. Con `MaxAbsScaler`, el modelo identifica vecinos reales.
+Se utilizó KNN para encontrar los $k$ clientes más cercanos. Se demostró que **el escalado de los datos es crítico**: sin escalar, la variable `income` dominaba la distancia. Con `MaxAbsScaler`, el modelo identifica vecinos reales.
 
 ### 2. Clasificación (Predicción de Prestaciones)
 Se construyó un clasificador KNN para predecir si un cliente recibirá al menos una prestación. Ante el fuerte desbalanceo (~88% clase 0), se comparó contra un modelo Dummy.
@@ -32,32 +32,31 @@ Se construyó un clasificador KNN para predecir si un cliente recibirá al menos
 
 ### 3. Regresión Lineal (Conteo de Prestaciones)
 Se implementó un modelo de Regresión Lineal desde cero utilizando la solución analítica matricial:
-\[
-w = (X^T X)^{-1} X^T y
-\]
-- **Resultado:** **RMSE de 0.36** y **\(R^2\) de 0.66**.
+
+$$ w = (X^T X)^{-1} X^T y $$
+
+- **Resultado:** **RMSE de 0.36** y **$R^2$ de 0.66**.
 - **Hallazgo clave:** Se demostró empíricamente que el escalado de los datos no afecta los resultados de la regresión lineal, ya que los pesos del modelo se ajustan automáticamente.
 
 ### 4. Ofuscación de Datos y Privacidad (El diferenciador del proyecto)
-Para proteger los datos, se multiplicó la matriz de características \(X\) por una matriz invertible \(P\) de números aleatorios: \(X' = X \times P\).
+Para proteger los datos, se multiplicó la matriz de características $X$ por una matriz invertible $P$ de números aleatorios: $X' = X \times P$.
 
 **Prueba Analítica de la Regresión con Ofuscación:**
 Si entrenamos el modelo con datos ofuscados, los nuevos pesos serían:
-\[
-w_P = [(XP)^T XP]^{-1} (XP)^T y
-\]
+
+$$ w_P = [(XP)^T XP]^{-1} (XP)^T y $$
+
 Aplicando propiedades matriciales:
-\[
-w_P = [P^T X^T X P]^{-1} P^T X^T y = P^{-1} (X^T X)^{-1} (P^T)^{-1} P^T X^T y
-\]
-\[
-w_P = P^{-1} [(X^T X)^{-1} X^T y] = P^{-1} w
-\]
+
+$$ w_P = [P^T X^T X P]^{-1} P^T X^T y = P^{-1} (X^T X)^{-1} (P^T)^{-1} P^T X^T y $$
+
+$$ w_P = P^{-1} [(X^T X)^{-1} X^T y] = P^{-1} w $$
+
 Al predecir, el modelo ofuscado calcula:
-\[
-\hat{y}_P = X' w_P = (XP)(P^{-1}w) = X(PP^{-1})w = Xw = \hat{y}
-\]
-**Conclusión:** Los valores predichos son **exactamente los mismos**. El RMSE y el \(R^2\) no se ven afectados (diferencia máxima por precisión de punto flotante de \(9.07 \times 10^{-8}\)). Los datos son inútiles para un hacker (sin la matriz \(P\)), pero perfectos para el modelo.
+
+$$ \hat{y}_P = X' w_P = (XP)(P^{-1}w) = X(PP^{-1})w = Xw = \hat{y} $$
+
+**Conclusión:** Los valores predichos son **exactamente los mismos**. El RMSE y el $R^2$ no se ven afectados (diferencia máxima por precisión de punto flotante de $9.07 \times 10^{-8}$). Los datos son inútiles para un hacker (sin la matriz $P$), pero perfectos para el modelo.
 
 ## ✅ Recomendación de Negocio
 
