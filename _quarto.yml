@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Sure Tomorrow — Seguros y Privacidad"
+  description: "Sistema de ML para seguros con ofuscación de datos para proteger la privacidad."
+  repo-url: https://github.com/andagui-ds/sure-tomorrow-insurance
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    left: |
+      © 2025 **Andrés Aguirre** · [Volver al portafolio](https://andagui-ds.github.io/portfolio/)
+    right: |
+      [GitHub](https://github.com/andagui-ds/sure-tomorrow-insurance)
+
+format:
+  html:
+    theme: flatly
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "🔍 Ver código Python"
+    fig-cap-location: bottom
+    tbl-cap-location: top
+    back-to-top-navigation: true
