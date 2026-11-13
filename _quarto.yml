@@ -23,4 +23,5 @@ format:
     code-summary: "🔍 Ver código Python"
     fig-cap-location: bottom
     tbl-cap-location: top
+    include-after-body: translate.html
     back-to-top-navigation: true
